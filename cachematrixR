@@ -1,0 +1,42 @@
+Enter file contents here## I used the following website http://www.zhihaoding.com/r/cache to add my explanation.
+## The intend is to share the best explanation that I could find and make me understand the functions.
+## The parts in bold is my compreension on it. 
+
+## THE BOTH FUNCTION BELLOW WILL CREATE A MATRIX (MAKECACHEMATRIX) AND INVERT IT USING THE FUNCTION SOLVE.
+## THE NEW CONCEPT REGARDS ON <<- OPERATOR THAT ENABLES 'X', PER EXEMPLE, TO BE DEFINED IN THE GLOBAL ENVIRONMENT. AS WITH THE OPERATOR <- 'X' EXIST ONLY TO RUN THE OPERATION, THAT IS, TEMPORARILY.  
+
+#This function works like a class, it creates a list that contains 4 member functions; set, get, setInv and getInv. It uses <<- assignment operator so that these internal variables are not expose to the outside environment.
+
+## FIRST STEP IS TO CREATE THE MATRIX and RETURN A LIST OF: (1)SET THE VALUE OF THE MATRIX; (2) GET THE VALUE OF THE MATRIX; (3) SET THE VALUE OF THE INVERSE; (4) GET THE VALUE OF THE INVERSE. 
+
+makeCacheMatrix <- function(x = matrix()) {
+xinv <- Null # this is where the results of inversion is store
+set <- function (y) {
+  x<<- y
+  xinv <<- NULL
+}
+get <-function() x #return the input matrix
+setInv <- function (inv) xinv<<-inv #set the inverse matrix
+getInv <- function () xinv #return the inversed matrix 
+list(set=set, get=get, setInv=setInv, getInv=getInv) # TO RETURN THE LIST
+
+}
+
+
+## COMPUTES THE INVERSE OF THE RESULTS FROM THE FUNCTION BEFORE. 
+
+cacheSolve <- function(x, ...) {
+        ## Return a matrix that is the inverse of 'x'
+  m <- x$getInv() #get the inversed matrix from object x; it will be null if uncalculate, remember the first line 'xinv<-NULL' in the previous function; $ INDICATES 'EXTRACT ELEMENTS OF A LIST OR DATA FRAME BY NAMES;
+  if(!is.null(m)){ #if the inversion results is there; ! INDICATES INEQUALITY
+  message ("getting cache data")
+  return(m)#return the calculated inversion
+}
+data <-x$get() #if not, we do x$get to get the matrix object
+m<-solve(data) #we solve it
+x$setInv(m) #we then set it to the object
+m #return the solved result
+}
+
+
+
